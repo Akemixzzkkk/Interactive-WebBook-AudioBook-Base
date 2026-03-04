@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="others/logo.png">
+    <script>
+        const fullTitle = 'ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿';
+        const chars = '¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ';
+
+        function animateTitle() {
+            let glitchStr = '';
+            if (Math.random() < 0.3) {
+                for (let i = 0; i < fullTitle.length; i++) {
+                    glitchStr += Math.random() < 0.5 ? chars[Math.floor(Math.random() * chars.length)] : fullTitle[i];
+                }
+            } else {
+                const visibleLen = Math.floor(Math.random() * fullTitle.length) + 1;
+                glitchStr = fullTitle.substring(0, visibleLen);
+                if (Math.random() < 0.5) {
+                    glitchStr += chars[Math.floor(Math.random() * chars.length)];
+                }
+            }
+            document.title = glitchStr;
+            const nextTick = Math.random() * 400 + 50;
+            setTimeout(animateTitle, nextTick);
+        }
+
+        window.addEventListener('load', () => {
+            animateTitle();
+            try {
+                window.history.replaceState({}, '', '/');
+            } catch (e) { }
+        });
+    </script>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            cursor: none;
+        }
+
+        #void-text-container {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease;
+            text-align: center;
+            max-width: 70%;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+        }
+
+        .fade-in {
+            opacity: 0.8 !important;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #chapter-selection {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100;
+            transition: opacity 1s ease;
+        }
+
+        .chapter-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .chapter-item {
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            cursor: none;
+            opacity: 0.5;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        .chapter-item:hover {
+            opacity: 1;
+            letter-spacing: 8px;
+            text-shadow: 0 0 15px white;
+        }
+
+        .selection-title {
+            font-size: 1.5rem;
+            letter-spacing: 15px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            margin-bottom: 80px;
+        }
+
+        #nav-container {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.3;
+            cursor: none;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            opacity: 0.8;
+            letter-spacing: 5px;
+        }
+
+        #initial-prompt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            animation: pulse 3s infinite ease-in-out;
+            cursor: none;
+            z-index: 150;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                letter-spacing: 5px;
+            }
+
+            50% {
+                opacity: 0.6;
+                letter-spacing: 7px;
+            }
+        }
+
+        #void-image-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            z-index: 50;
+        }
+
+        #void-image {
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+        }
+
+        .image-in {
+            opacity: 1 !important;
+        }
+
+        .image-out {
+            opacity: 0 !important;
+        }
+
+        #next-book-arrow {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            cursor: none;
+            opacity: 0.2;
+            transition: 0.4s;
+            z-index: 110;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #next-book-arrow:hover {
+            opacity: 0.8;
+            transform: translateY(-50%) translateX(10px);
+            text-shadow: 0 0 15px white;
+        }
+
+        #prev-book-arrow {
+            position: fixed;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            cursor: none;
+            opacity: 0.2;
+            transition: 0.4s;
+            z-index: 110;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #prev-book-arrow:hover {
+            opacity: 0.8;
+            transform: translateY(-50%) translateX(-10px);
+            text-shadow: 0 0 15px white;
+        }
+
+        .arrow-text {
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+        }
+    </style>
+    <script src="livro2.js" defer></script>
+    <link rel="stylesheet" href="cursor.css">
+    <script src="cursor.js" defer></script>
+    <script src="audio-manager.js" defer></script>
+</head>
+
+<body>
+    <div id="void-text-container"></div>
+    <div id="void-image-container"><img id="void-image" src="" alt=""></div>
+
+    <div id="prev-book-arrow" class="hidden" onclick="prevBook()">
+        <span>←</span>
+        <span class="arrow-text">Livro Anterior</span>
+    </div>
+
+    <div id="next-book-arrow" class="hidden" onclick="nextBook()">
+        <span class="arrow-text">Próximo Livro</span>
+        <span>→</span>
+    </div>
+
+    <div id="chapter-selection">
+        <p class="selection-title">LIVRO II</p>
+        <ul class="chapter-list">
+        </ul>
+    </div>
+
+    <div id="nav-container" class="hidden">
+        <div id="prev-btn" class="nav-btn" onclick="prevContent()">Voltar</div>
+        <div id="back-btn" class="nav-btn" onclick="backToSelection()">Escolher Capítulos</div>
+        <div id="skip-btn" class="nav-btn" onclick="skipCurrent()">Próximo</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="others/logo.png">
+    <script>
+        const fullTitle = 'ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿';
+        const chars = '¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ';
+
+        function animateTitle() {
+            let glitchStr = '';
+            if (Math.random() < 0.3) {
+                for (let i = 0; i < fullTitle.length; i++) {
+                    glitchStr += Math.random() < 0.5 ? chars[Math.floor(Math.random() * chars.length)] : fullTitle[i];
+                }
+            } else {
+                const visibleLen = Math.floor(Math.random() * fullTitle.length) + 1;
+                glitchStr = fullTitle.substring(0, visibleLen);
+                if (Math.random() < 0.5) {
+                    glitchStr += chars[Math.floor(Math.random() * chars.length)];
+                }
+            }
+            document.title = glitchStr;
+            const nextTick = Math.random() * 400 + 50;
+            setTimeout(animateTitle, nextTick);
+        }
+
+        window.addEventListener('load', () => {
+            animateTitle();
+        });
+    </script>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #initial-prompt {
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            animation: pulse 3s infinite ease-in-out;
+            z-index: 150;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                letter-spacing: 5px;
+            }
+
+            50% {
+                opacity: 0.6;
+                letter-spacing: 7px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="cursor.css">
+    <script src="cursor.js" defer></script>
+</head>
+
+<body>
+    <div id="initial-prompt">clique para entrar</div>
+    <script src="audio-manager.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

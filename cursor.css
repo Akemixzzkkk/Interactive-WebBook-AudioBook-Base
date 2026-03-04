@@ -1,0 +1,26 @@
+/* Esconde o cursor padrão em todo o site */
+* {
+    cursor: none !important;
+}
+
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    /* Altere aqui para o tamanho desejado */
+    height: 20px;
+    /* Altere aqui para o tamanho desejado */
+    background-image: url('cursor/cursor.cur');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    /* Garante que o cursor não bloqueie cliques */
+    z-index: 10000;
+    transition: transform 0.1s ease-out;
+    /* Adiciona um leve rastro suave */
+    transform: translate(-50%, -50%);
+    /* Centraliza a imagem no mouse */
+    display: none;
+    /* Escondido até o primeiro movimento do mouse */
+}
